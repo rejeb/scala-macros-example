@@ -1,0 +1,9 @@
+.idea
+derby.log
+metastore_db
+target
+data
+.keep
+.scannerwork/
+**/dataxy.perso.conf
+**/airflow.perso.conf
