@@ -4,41 +4,15 @@ import java.time.LocalDateTime
 
 object parser {
 
-  trait ValParser {
-    type ValType
-    val value: String
-    def parse: ValType
-  }
+  def stringParser(value:String):String=value
 
-  case class StringParser(val value: String) extends ValParser {
-    override type ValType = String
+  def intParser(value:String):Int = value.toInt
+  def longParser(value:String) : Long = value.toLong
 
-    override def parse: String = value
-  }
+  def booleanParser(value:String):Boolean =value.toBoolean
 
-  case class  IntParser(val value: String) extends ValParser {
-    override type ValType = Int
+  def localDateTimeParser(value:String):LocalDateTime = LocalDateTime.parse(value)
 
-    override def parse: Int = value.toInt
-  }
-
-  case class LongParser(val value: String) extends ValParser {
-    override type ValType = Long
-
-    override def parse: Long = value.toLong
-  }
-
-  case class BooleanParser(val value: String) extends ValParser {
-    override type ValType = Boolean
-
-    override def parse: Boolean = value.toBoolean
-  }
-
-  case class LocalDateTimeParser(val value: String) extends ValParser {
-    override type ValType = LocalDateTime
-
-    override def parse: LocalDateTime = LocalDateTime.parse(value)
-  }
 
 }
 

@@ -1,23 +1,43 @@
 package com.rbr.macros.example
 
 import com.rbr.scala.RowKeyMappableMacro._
+import shapeless.Generic
 
 import java.time.LocalDateTime
 
 object ReflexionExample extends App {
 
 
-  val purchaseMapper = new CaseClassReflexionMapper[Purchase]()(materializeRowKeyMappable[Purchase])
-  val personMapper = new CaseClassReflexionMapper[Person]()(materializeRowKeyMappable[Person])
-  val inputPerson: Seq[Map[String, String]] = (1 to 10000).map(genPersonMap)
-  val inputPuchase = (1 to 10000).map(genPurchaseMap)
-  println("start mapping fields")
+  val purchaseMapper = new HbaseRepository[Purchase]()
+
+  val inputPurchase = (1 to 10000).map(genPurchaseMap)
+
+  println("start map to purchase")
+
   val startTime = System.currentTimeMillis()
-
-  val persons = inputPuchase.map(purchaseMapper.map)
-
+  val purchases = inputPurchase.map(purchaseMapper.getData)
   val elapsed = System.currentTimeMillis() - startTime
-  println(s"Elapsed time to Map ${persons.length} is $elapsed")
+
+  println(s"Elapsed time from Map ${purchases.length} is $elapsed")
+
+  println("start map to Map")
+
+  val startTimeToMap = System.currentTimeMillis()
+  val purchaseAsMap = purchases.map(purchaseMapper.saveData)
+  val elapsedToMap = System.currentTimeMillis() - startTimeToMap
+
+  println(s"Elapsed time to Map ${purchases.length} is $elapsedToMap")
+
+  val genPurchase = Generic[Purchase]
+  val reprPurchase = purchases.map(genPurchase.to)
+  println("start map using shapeless")
+
+  val startTimeShapeless = System.currentTimeMillis()
+  val purchaseShapeless = reprPurchase.map(genPurchase.from)
+  val elapsedShapeless = System.currentTimeMillis() - startTimeShapeless
+
+  println(s"Elapsed time to Map ${purchases.length} is $elapsedShapeless")
+
 
   def genPersonMap(i: Int): Map[String, String] = {
     Map("NAME" -> s"Jeff Lebowski$i", s"AGE" -> "25", "CREATION_DATE" -> LocalDateTime.now().toString)
