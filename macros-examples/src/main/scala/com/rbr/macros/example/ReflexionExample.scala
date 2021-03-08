@@ -10,7 +10,7 @@ object ReflexionExample extends App {
 
   val purchaseMapper = new HbaseRepository[Purchase]()
 
-  val inputPurchase = (1 to 10000).map(genPurchaseMap)
+  val inputPurchase = (1 to 1000).map(genPurchaseMap)
 
   println("start map to purchase")
 
@@ -36,7 +36,7 @@ object ReflexionExample extends App {
   val purchaseShapeless = reprPurchase.map(genPurchase.from)
   val elapsedShapeless = System.currentTimeMillis() - startTimeShapeless
 
-  println(s"Elapsed time to Map ${purchases.length} is $elapsedShapeless")
+  println(s"Elapsed time to shapeless ${purchases.length} is $elapsedShapeless")
 
 
   def genPersonMap(i: Int): Map[String, String] = {
