@@ -1,12 +1,15 @@
-package com.rbr.scala
+package com.rbr.macros.example
+
+import com.rbr.scala.RowKeyColumn
 
 import java.time.LocalDateTime
 import scala.annotation.meta.field
 
-
 case class Person(@(RowKeyColumn@field)("NAME", 1)
-                  name: String,
+                  var name: String,
                   @(RowKeyColumn@field)("AGE", 2)
-                  age: Int,
+                  var age: String,
                   @(RowKeyColumn@field)("CREATION_DATE", 3)
-                  creationDate: LocalDateTime)
+                  var creationDate: LocalDateTime = null){
+  def this() = this(null,null)
+}

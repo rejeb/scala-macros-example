@@ -1,7 +1,8 @@
-package com.rbr.scala
+package com.rbr.macros.example
+
+import com.rbr.scala.RowKeyColumn
 
 import scala.annotation.meta.field
-
 
 case class Purchase(@(RowKeyColumn@field)(name = "NAME1", position = 1)
                     name1: String,
