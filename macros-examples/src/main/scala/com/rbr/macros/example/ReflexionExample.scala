@@ -1,27 +1,27 @@
 package com.rbr.macros.example
 
-import shapeless.Generic
-import com.rbr.scala.MappableMacro._
+import com.rbr.scala.RowKeyMappableMacro._
+
 import java.time.LocalDateTime
 
 object ReflexionExample extends App {
 
-  val fieldAsMap = Map(s"NAME" -> "Jeff Lebowski", s"AGE" -> s"25", s"CREATION_DATE" -> LocalDateTime.now().toString)
-  Map.empty
-  val purchaseMapper = new CaseClassReflexionMapper[Purchase]
-  val input = (1 to 10000).map(genPurchaseMap)
+
+  val purchaseMapper = new CaseClassReflexionMapper[Purchase]()(materializeRowKeyMappable[Purchase])
+  val personMapper = new CaseClassReflexionMapper[Person]()(materializeRowKeyMappable[Person])
+  val inputPerson: Seq[Map[String, String]] = (1 to 10000).map(genPersonMap)
+  val inputPuchase = (1 to 10000).map(genPurchaseMap)
+  println("start mapping fields")
   val startTime = System.currentTimeMillis()
 
-  val purchases = input.map(purchaseMapper.map)
+  val persons = inputPuchase.map(purchaseMapper.map)
 
   val elapsed = System.currentTimeMillis() - startTime
-  val startTimeElapsed = System.currentTimeMillis()
-  //  println(s"Elapsed time to Map ${purchases.length} is $elapsed")
+  println(s"Elapsed time to Map ${persons.length} is $elapsed")
 
-
-  val elapsedToPrint = System.currentTimeMillis() - startTimeElapsed
-
-  println(s"Elapsed time to print is $elapsedToPrint")
+  def genPersonMap(i: Int): Map[String, String] = {
+    Map("NAME" -> s"Jeff Lebowski$i", s"AGE" -> "25", "CREATION_DATE" -> LocalDateTime.now().toString)
+  }
 
   def genPurchaseMap(i: Int): Map[String, String] = {
     (1 until 14)
