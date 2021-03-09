@@ -5,11 +5,11 @@ import com.rbr.scala.RowKeyColumn
 import scala.annotation.meta.field
 
 case class Purchase(@(RowKeyColumn@field)(name = "NAME1", position = 1)
-                    name1: String,
+                    name1: Option[String],
                     @(RowKeyColumn@field)(name = "ORDER_NUMBER1", position = 2)
-                    orderNumber1: Long,
+                    orderNumber1: Option[Long],
                     @(RowKeyColumn@field)(name = "SHIPPED1", position = 3)
-                    shipped1: Boolean,
+                    shipped1: Option[Boolean],
                     @(RowKeyColumn@field)(name = "NAME2", position = 4)
                     name2: String,
                     @(RowKeyColumn@field)(name = "ORDER_NUMBER2", position = 5)

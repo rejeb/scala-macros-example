@@ -58,21 +58,28 @@ object RowKeyMappableMacro {
         val annotation = construct0(ann.tree.children.tail)
         val columnName = q"$annotation.name"
         val parser = parse(c)(fieldType)
-        val extractedValue = q"map($columnName)"
+        val extractedValue = q"map.get($columnName)"
         (q"$columnName->t.${fieldName}.toString", q"${parser(extractedValue)}")
       }
     }
-
   }
+
 
   def parse(c: Context)(fieldType: c.universe.Type): (c.universe.Tree => c.universe.Tree) = {
     import c.universe._
+
     fieldType match {
+      case tpe if (tpe =:= typeOf[Option[String]]) => value => q"_root_.com.rbr.scala.parser.stringOptionParser($value)"
       case tpe if (tpe =:= typeOf[String]) => value => q"_root_.com.rbr.scala.parser.stringParser($value)"
+      case tpe if (tpe =:= typeOf[Option[Int]]) => value => q"_root_.com.rbr.scala.parser.intOptionParser($value)"
       case tpe if (tpe =:= typeOf[Int]) => value => q"_root_.com.rbr.scala.parser.intParser($value)"
+      case tpe if (tpe =:= typeOf[Option[Long]]) => value => q"_root_.com.rbr.scala.parser.longOptionParser($value)"
       case tpe if (tpe =:= typeOf[Long]) => value => q"_root_.com.rbr.scala.parser.longParser($value)"
+      case tpe if (tpe =:= typeOf[Option[Boolean]]) => value => q"_root_.com.rbr.scala.parser.booleanOptionParser($value)"
       case tpe if (tpe =:= typeOf[Boolean]) => value => q"_root_.com.rbr.scala.parser.booleanParser($value)"
+      case tpe if (tpe =:= typeOf[Option[LocalDateTime]]) => value => q"_root_.com.rbr.scala.parser.localDateTimeOptionParser($value)"
       case tpe if (tpe =:= typeOf[LocalDateTime]) => value => q"_root_.com.rbr.scala.parser.localDateTimeParser($value)"
+      case _ => throw new java.lang.AssertionError(s"Unable to match $fieldType over parsers.")
     }
   }
 }
