@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 object ReflexionExample extends App {
 
 
-  val purchaseMapper = new HbaseRepository[Purchase]()(materializeRowKeyMappable[Purchase])
+  val purchaseMapper = new HbaseRepository[Purchase]()
 
   val inputPurchase = (1 to 1000).map(genPurchaseMap)
 

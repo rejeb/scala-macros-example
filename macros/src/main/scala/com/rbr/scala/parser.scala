@@ -4,27 +4,39 @@ import java.time.LocalDateTime
 
 object parser {
 
-  def stringParser(value: Option[String]): String = stringOptionParser(value).orNull
+  implicit def stringToInt(value: Option[String]): Int = stringToIntOptionParser(value).getOrElse(Int.MinValue)
 
-  def stringOptionParser(value: Option[String]): Option[String] = value
+  implicit def stringToIntOptionParser(value: Option[String]): Option[Int] = value.map(_.toInt)
 
-  def intParser(value: Option[String]): Int = intOptionParser(value).getOrElse(Int.MinValue)
+  implicit def stringToLong(value: Option[String]): Long = stringToLongOption(value).getOrElse(Long.MinValue)
 
-  def intOptionParser(value: Option[String]): Option[Int] = value.map(_.toInt)
+  implicit def stringToLongOption(value: Option[String]): Option[Long] = value.map(_.toLong)
 
-  def longParser(value: Option[String]): Long = longOptionParser(value).getOrElse(Long.MinValue)
+  implicit def stringToBoolean(value: Option[String]): Boolean = stringToBooleanOption(value).getOrElse(false)
 
-  def longOptionParser(value: Option[String]): Option[Long] = value.map(_.toLong)
+  implicit def stringToBooleanOption(value: Option[String]): Option[Boolean] = value.map(_.toBoolean)
 
-  def booleanParser(value: Option[String]): Boolean = booleanOptionParser(value).getOrElse(false)
+  implicit  def stringToLocalDateTime(value: Option[String]): LocalDateTime = stringToLocalDateTimeOptionParser(value).orNull
 
-  def booleanOptionParser(value: Option[String]): Option[Boolean] = value.map(_.toBoolean)
-
-  def localDateTimeParser(value: Option[String]): LocalDateTime = localDateTimeOptionParser(value).orNull
-
-  def localDateTimeOptionParser(value: Option[String]): Option[LocalDateTime] = value.map(LocalDateTime.parse)
+  implicit def stringToLocalDateTimeOptionParser(value: Option[String]): Option[LocalDateTime] = value.map(LocalDateTime.parse)
 
 
+ implicit def stringOptionToString(value:Option[String]):String = value.getOrElse("")
+ implicit def intToString(value: Int): String = value.toString
+
+ implicit def intOptionToString(value: Option[Int]): String = value.map(_.toString).getOrElse("")
+
+ implicit def longToString(value: Long): String = value.toString
+
+ implicit def longOptionToString(value: Option[Long]): String = value.map(_.toString).getOrElse("")
+
+ implicit def booleanToString(value: Boolean): String = value.toString
+
+ implicit def booleanOptionToString(value: Option[Boolean]): String = value.map(_.toString).getOrElse("")
+
+ implicit  def localDateTimeToString(value: LocalDateTime): String = localDateTimeOptionToString(Option(value))
+
+ implicit def localDateTimeOptionToString(value: Option[LocalDateTime]): String = value.map(_.toString).getOrElse("")
 }
 
 
