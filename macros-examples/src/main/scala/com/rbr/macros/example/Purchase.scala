@@ -1,6 +1,7 @@
 package com.rbr.macros.example
 
-import com.rbr.scala.RowKeyColumn
+
+import com.rbr.scala.annotations.RowKeyColumn
 
 import scala.annotation.meta.field
 
