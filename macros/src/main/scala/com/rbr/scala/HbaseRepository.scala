@@ -6,15 +6,15 @@ import org.apache.hadoop.hbase.client._
 import org.apache.hadoop.hbase.{HBaseConfiguration, TableName}
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.StructType
+
 import scala.collection.JavaConverters._
-import scala.math.Ordered.orderingToOrdered
 
 class HbaseRepository[T](implicit hbaseMapper: HbaseMapper[T], rowMapper: RowMapper[T], ord: Ordering[T]) {
 
 
   val config: Configuration = HBaseConfiguration.create
-//  config.set("hbase.zookeeper.quorum", "rbr.k8s.master")
-//  config.set("hbase.zookeeper.property.clientPort", "2181")
+  //  config.set("hbase.zookeeper.quorum", "rbr.k8s.master")
+  //  config.set("hbase.zookeeper.property.clientPort", "2181")
   val connection: Connection = ConnectionFactory.createConnection(config)
 
   val columnFamily = "data".getBytes
@@ -46,13 +46,13 @@ class HbaseRepository[T](implicit hbaseMapper: HbaseMapper[T], rowMapper: RowMap
     val TABLE_NAME = TableName.valueOf(tableName)
     val table = connection.getTable(TABLE_NAME)
     println("Start Building Query.")
-    val start=System.currentTimeMillis()
+    val start = System.currentTimeMillis()
     val query = pojos.map(makeQuery).asJava
-    println(s"Query built in ${System.currentTimeMillis()-start}")
+    println(s"Query built in ${System.currentTimeMillis() - start}")
     println("Start put to hbase.")
-    val startInsertHbase=System.currentTimeMillis()
+    val startInsertHbase = System.currentTimeMillis()
     table.put(query)
-    println(s"Put hbase done in ${System.currentTimeMillis()-startInsertHbase}")
+    println(s"Put hbase done in ${System.currentTimeMillis() - startInsertHbase}")
   }
 
   def fromRow(row: Row): T = rowMapper.fromRow(row)
