@@ -1,85 +1,44 @@
 package com.rbr.macros.example
 
 
-import com.rbr.scala.annotations.RowKeyColumn
+import com.rbr.scala.annotations.{NzColumn, RowKeyColumn}
 
+import java.time.{LocalDate, LocalDateTime}
 import scala.annotation.meta.field
 
 case class Purchase(@(RowKeyColumn@field)(name = "NAME1", position = 1)
                     name1: Option[String],
                     @(RowKeyColumn@field)(name = "ORDER_NUMBER1", position = 2)
-                    orderNumber1: Option[Long],
+                    orderNumber1: Option[LocalDateTime],
                     @(RowKeyColumn@field)(name = "SHIPPED1", position = 3)
-                    shipped1: Option[Boolean],
-                    @(RowKeyColumn@field)(name = "NAME2", position = 4)
+                    shipped1: Option[LocalDate],
+                    @(NzColumn@field)(value = "NAME2")
                     name2: String,
-                    @(RowKeyColumn@field)(name = "ORDER_NUMBER2", position = 5)
-                    orderNumber2: Long,
-                    @(RowKeyColumn@field)(name = "SHIPPED2", position = 6)
-                    shipped2: Boolean,
-                    @(RowKeyColumn@field)(name = "NAME3", position = 7)
+                    @(NzColumn@field)(value = "ORDER_NUMBER2", updateCriteria = true)
+                    orderNumber2: LocalDateTime,
+                    @(NzColumn@field)(value = "SHIPPED2")
+                    shipped2: LocalDate,
+                    @(NzColumn@field)(value = "NAME3")
                     name3: String,
-                    @(RowKeyColumn@field)(name = "ORDER_NUMBER3", position = 8)
-                    orderNumber3: Long,
-                    @(RowKeyColumn@field)(name = "SHIPPED3", position = 9)
-                    shipped3: Boolean,
-                    @(RowKeyColumn@field)(name = "NAME4", position = 10)
+                    @(NzColumn@field)(value = "ORDER_NUMBER3")
+                    orderNumber3: LocalDateTime,
+                    @(NzColumn@field)(value = "SHIPPED3")
+                    shipped3: LocalDate,
+                    @(NzColumn@field)(value = "NAME4")
                     name4: String,
-                    @(RowKeyColumn@field)(name = "ORDER_NUMBER4", position = 11)
-                    orderNumber4: Long,
-                    @(RowKeyColumn@field)(name = "SHIPPED4", position = 12)
-                    shipped4: Boolean,
-                    @(RowKeyColumn@field)(name = "NAME5", position = 13)
+                    @(NzColumn@field)(value = "ORDER_NUMBER4")
+                    orderNumber4: LocalDateTime,
+                    @(NzColumn@field)(value = "SHIPPED4")
+                    shipped4: LocalDate,
+                    @(NzColumn@field)(value = "NAME5")
                     name5: String,
-                    @(RowKeyColumn@field)(name = "ORDER_NUMBER5", position = 14)
-                    orderNumber5: Long,
-                    @(RowKeyColumn@field)(name = "SHIPPED5", position = 15)
-                    shipped5: Boolean,
-                    @(RowKeyColumn@field)(name = "NAME6", position = 16)
+                    @(NzColumn@field)(value = "ORDER_NUMBER5")
+                    orderNumber5: LocalDateTime,
+                    @(NzColumn@field)(value = "SHIPPED5")
+                    shipped5: LocalDate,
+                    @(NzColumn@field)(value = "NAME6")
                     name6: String,
-                    @(RowKeyColumn@field)(name = "ORDER_NUMBER6", position = 17)
-                    orderNumber6: Long,
-                    @(RowKeyColumn@field)(name = "SHIPPED6", position = 18)
-                    shipped6: Boolean,
-                    @(RowKeyColumn@field)(name = "NAME7", position = 19)
-                    name7: String,
-                    @(RowKeyColumn@field)(name = "ORDER_NUMBER7", position = 20)
-                    orderNumber7: Long,
-                    @(RowKeyColumn@field)(name = "SHIPPED7", position = 21)
-                    shipped7: Boolean,
-                    @(RowKeyColumn@field)(name = "NAME8", position = 22)
-                    name8: String,
-                    @(RowKeyColumn@field)(name = "ORDER_NUMBER8", position = 23)
-                    orderNumber8: Long,
-                    @(RowKeyColumn@field)(name = "SHIPPED8", position = 24)
-                    shipped8: Boolean,
-                    @(RowKeyColumn@field)(name = "NAME9", position = 25)
-                    name9: String,
-                    @(RowKeyColumn@field)(name = "ORDER_NUMBER9", position = 26)
-                    orderNumber9: Long,
-                    @(RowKeyColumn@field)(name = "SHIPPED9", position = 27)
-                    shipped9: Boolean,
-                    @(RowKeyColumn@field)(name = "NAME10", position = 28)
-                    name10: String,
-                    @(RowKeyColumn@field)(name = "ORDER_NUMBER10", position = 29)
-                    orderNumber10: Long,
-                    @(RowKeyColumn@field)(name = "SHIPPED10", position = 30)
-                    shipped10: Boolean,
-                    @(RowKeyColumn@field)(name = "NAME11", position = 31)
-                    name11: String,
-                    @(RowKeyColumn@field)(name = "ORDER_NUMBER11", position = 32)
-                    orderNumber11: Long,
-                    @(RowKeyColumn@field)(name = "SHIPPED11", position = 33)
-                    shipped11: Boolean,
-                    @(RowKeyColumn@field)(name = "NAME11", position = 34)
-                    name12: String,
-                    @(RowKeyColumn@field)(name = "ORDER_NUMBER11", position = 35)
-                    orderNumber12: Long,
-                    @(RowKeyColumn@field)(name = "SHIPPED11", position = 36)
-                    shipped12: Boolean,
-                    @(RowKeyColumn@field)(name = "NAME11", position = 37)
-                    name13: String,
-                    @(RowKeyColumn@field)(name = "ORDER_NUMBER11", position = 38)
-                    orderNumber13: Long,
-                    @(RowKeyColumn@field)(name = "SHIPPED11", position = 39)
-                    shipped13: Boolean)
+                    @(NzColumn@field)(value = "ORDER_NUMBER6")
+                    orderNumber6: LocalDateTime,
+                    @(NzColumn@field)(value = "SHIPPED6")
+                    shipped6: LocalDate)

@@ -12,7 +12,7 @@ lazy val macros = (project in file("macros"))
         "org.apache.spark" %% "spark-sql" % "2.3.0",
         "org.scala-lang" % "scala-compiler" % scalaVersion.value,
         "org.scala-lang" % "scala-reflect" % scalaVersion.value,
-        "com.chuusai" %% "shapeless" % "2.3.2"
+        "org.apache.hbase" % "hbase-client" % "1.2.5"
       )
   )
 
